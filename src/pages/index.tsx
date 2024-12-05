@@ -5,6 +5,7 @@ import { Day3 } from '@/components/days/day3';
 import { Day1 } from '@/components/days/day1';
 import { Day4 } from '@/components/days/day4';
 import { Day5 } from '@/components/days/day5';
+import { Day2 } from '@/components/days/day2';
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -21,7 +22,6 @@ export default function Home() {
     const [selectedDay, setDay] = useState<null | number>(null);
 
     const today = new Date().getDay() + 1;
-    console.log({ today });
 
     useEffect(() => {
         setDay(today);
@@ -33,6 +33,8 @@ export default function Home() {
         switch (selectedDay) {
             case 1:
                 return <Day1 />;
+            case 2:
+                return <Day2 />;
             case 3:
                 return <Day3 />;
             case 4:
