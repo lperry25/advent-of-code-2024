@@ -4,6 +4,7 @@ import { DaySelection } from '@/components/DaySelection';
 import { Day3 } from '@/components/days/day3';
 import { Day1 } from '@/components/days/day1';
 import { Day4 } from '@/components/days/day4';
+import { Day5 } from '@/components/days/day5';
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -36,6 +37,8 @@ export default function Home() {
                 return <Day3 />;
             case 4:
                 return <Day4 />;
+            case 5:
+                return <Day5 />;
             default:
                 return <h3>Oops! This day is not solved yet sorry!</h3>;
         }
