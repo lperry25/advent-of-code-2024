@@ -49,21 +49,28 @@ export function Day2() {
         console.log({removingSecondNumberChangesOrder})
         console.log(notInitiallySafe.length);
         console.log({removingSecondNumberDoesNotChangeOrder})
+        let firstNumberProblems: number[][] = []
         const lastNumbers = removingSecondNumberDoesNotChangeOrder.filter((report) => {
             let increasing = isIncreasing(report);
             let problemDampenerActivated = false;
-            let i = 1;
             let allReportsSafe = true;
-            while (i < report.length) {
-                const num = report[i];
+            let damperedReport = report;
+            const firstDiff =Math.abs(damperedReport[0] - damperedReport[1])
+            if (firstDiff > 3){
+                firstNumberProblems.push(report.filter((_, index) => index !== 0))
+                return false;
+            }
+            let i = 1;
+            while (i < damperedReport.length) {
+                const num = damperedReport[i];
                 let diff;
                 let safe;
                 if (increasing) {
-                    diff = num - report[i - 1];
+                    diff = num - damperedReport[i - 1];
                     safe = diff <= 3 && diff > 0;
                     //     console.log({safe, problemDampenerActivated, diff})
                 } else {
-                    diff = report[i - 1] - num;
+                    diff = damperedReport[i - 1] - num;
                     safe = diff <= 3 && diff > 0;
                 }
                 // console.log({safe, problemDampenerActivated, diff})
@@ -74,14 +81,16 @@ export function Day2() {
                     break;
                 } else {
                     problemDampenerActivated = true;
-                    report = report.filter((_, index) => index !== 1);
+                    damperedReport = report.filter((_, index) => index !== i);
                 }
             }
             return allReportsSafe;
         });
+        const fixedFirstNumbers = firstNumberProblems.filter(isSafeReport)
+        console.log(fixedFirstNumbers.length)
         console.log(lastNumbers.length);
         console.log(safeFixedSecondNumber.length)
-        return safeReports.length + safeFixedSecondNumber.length + lastNumbers.length;
+        return safeReports.length + safeFixedSecondNumber.length + lastNumbers.length + fixedFirstNumbers.length;
     };
     return <Day solve1={solve1} solve2={solve2} />;
 }
